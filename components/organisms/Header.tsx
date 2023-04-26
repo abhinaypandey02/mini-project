@@ -10,6 +10,7 @@ import { logOut, signInGoogle } from '../../firebase/auth'
 import Button from '../atoms/Button'
 import Container from '../atoms/Container'
 import Wrapper from '../atoms/Wrapper'
+import Sidebar from '../molecules/Sidebar'
 import Footer from '../organisms/Footer'
 
 const auth = getAuth()
@@ -47,10 +48,12 @@ export default function Header() {
   return (
     <Wrapper className={'sticky top-0 z-40 bg-p2 shadow-md'}>
       <Container className={'relative flex w-full items-center gap-6 py-5 px-2'}>
+        <Sidebar currentPath={currentPath} ROUTES={ROUTES} user={user} />
+
         {!loading && user && (
           <div
             className={
-              'absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-400 via-teal-500 to-yellow-500 bg-clip-text text-xl font-bold text-transparent '
+              'absolute top-1/2 left-1/2 hidden -translate-y-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-400 via-teal-500 to-yellow-500 bg-clip-text text-xl font-bold text-transparent md:block '
             }
           >
             Welcome {user?.displayName}!
@@ -61,13 +64,13 @@ export default function Header() {
             <Image width={300} height={300} src={'/logo.png'} alt={'cycle management system'} />
           </div>
           <div
-            className={'text-1.5xl text-center font-bold hover:text-purple-900'}
+            className={'text-1.5xl hidden text-center font-bold hover:text-purple-900 md:block'}
             style={{ color: '#F5C300' }}
           >
             Cycle Management System
           </div>
         </Link>
-        <div className={'flex flex-grow justify-end gap-5'}>
+        <div className={'hidden flex-grow justify-end gap-5 md:flex'}>
           {ROUTES.map((route) => (
             <Link
               className={
@@ -89,7 +92,7 @@ export default function Header() {
             id={'google'}
             variant={'outline'}
             className={
-              'flex gap-3 rounded-lg border bg-white p-4 shadow-md transition-transform duration-200 ease-in-out hover:scale-105 hover:text-white'
+              'hidden gap-3 rounded-lg border bg-white p-4 shadow-md transition-transform duration-200 ease-in-out hover:scale-105 hover:text-white md:flex'
             }
             onClick={() => {
               setLoading(true)
@@ -119,7 +122,7 @@ export default function Header() {
         {user && (
           <Link
             href={'/account'}
-            className={'h-10 w-10 overflow-hidden rounded-full border border-p1'}
+            className={'hidden h-10 w-10 overflow-hidden rounded-full border border-p1 md:block'}
           >
             <Image
               alt={'user photo'}

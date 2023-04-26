@@ -5,9 +5,11 @@ import CycleCard from '../molecules/CycleCard'
 const ProductDesSection = ({
   cycle,
   similarBoughtCycles,
+  similarCycles,
 }: {
   cycle: Cycle
   similarBoughtCycles: Cycle[]
+  similarCycles: Cycle[]
 }) => {
   return (
     <div className=" flex-grow">
@@ -30,6 +32,13 @@ const ProductDesSection = ({
       )}
       <div className={'grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'}>
         {similarBoughtCycles.map((cycle) => cycle && <CycleCard key={cycle.id} cycle={cycle} />)}
+      </div>
+
+      {similarCycles.length > 0 && (
+        <h1 className="mb-7 text-2xl font-semibold text-black">Similar Cycles</h1>
+      )}
+      <div className={'grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'}>
+        {similarCycles.map((cycle) => cycle && <CycleCard key={cycle.id} cycle={cycle} />)}
       </div>
     </div>
   )

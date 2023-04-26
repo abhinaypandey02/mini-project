@@ -31,10 +31,12 @@ export default function CyclePage({
   cycle,
   bookings,
   similarBoughtCycles,
+  similarCycles,
 }: {
   cycle: Cycle | null
   bookings: Booking[]
   similarBoughtCycles: Cycle[]
+  similarCycles: Cycle[]
 }) {
   const { rawUser } = useUser()
   var curr = new Date()
@@ -126,7 +128,11 @@ export default function CyclePage({
             />
           </div>
           <div className=" flex flex-wrap-reverse justify-between gap-10 px-4 pt-[50px] pb-[100px] sm:px-10 md:flex-nowrap ">
-            <ProductDesSection similarBoughtCycles={similarBoughtCycles} cycle={cycle} />
+            <ProductDesSection
+              similarCycles={similarCycles}
+              similarBoughtCycles={similarBoughtCycles}
+              cycle={cycle}
+            />
             <form
               onSubmit={handleSubmit(onSubmit)}
               name={'product'}
@@ -181,7 +187,7 @@ export default function CyclePage({
   )
 }
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const cycle = await getCycle(params?.cycle?.toString())
+  const cycle: Cycle | null = await getCycle(params?.cycle?.toString())
   const bookings = await getCycleBookings(params?.cycle?.toString() || '')
   const users = new Set<string>()
   bookings.forEach((booking) => {
@@ -203,10 +209,31 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const similarBoughtCycles = await Promise.all(
     Object.keys(alsoBoughtCycles)
       .sort((a, b) => alsoBoughtCycles[b as any] - alsoBoughtCycles[a as any])
-      .slice(0, 5)
+      .slice(0, 3)
       .map(getCycle)
   )
+  let similarCycles = []
+  if (cycle) {
+    try {
+      const formdata = new FormData()
+      formdata.append(
+        'data',
+        `${cycle.model}, ${cycle.price}, ${cycle.title}, ${cycle.gear}, ${cycle.features.join(' ')}`
+      )
+      const res = await fetch('https://6b86dd124d61.ngrok.app/search', {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow',
+      })
+      const resCycles = await res.json()
+      if (resCycles)
+        similarCycles = await Promise.all(resCycles.slice(0, 3).map(() => getCycle(resCycles.id)))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return {
-    props: { cycle, bookings, similarBoughtCycles: similarBoughtCycles.slice(0, 3) },
+    props: { cycle, bookings, similarBoughtCycles: similarBoughtCycles, similarCycles },
   }
 }

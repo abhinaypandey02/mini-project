@@ -9,11 +9,11 @@ function download(filename: string, text: string) {
   pom.click()
 }
 export default function Csv({ cycles }: { cycles: Cycle[] }) {
-  let csv = 'brand, price, title, gear, features'
+  let csv = 'brand, price, title, gear, features, id'
   cycles.forEach((cycle) => {
     csv += `\n${cycle.model}, ${cycle.price}, ${cycle.title}, ${cycle.gear}, ${cycle.features.join(
       ' '
-    )}`
+    )}, ${cycle.id}`
   })
   useEffect(() => {
     download('data.csv', csv)
