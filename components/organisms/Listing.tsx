@@ -13,7 +13,7 @@ export default function Listing({ cycles }: { cycles: Cycle[] }) {
 
         <div className="m-auto flex flex-col justify-center py-[114px] text-black">
           <div className="flex justify-between py-10">
-            <div className="text-3xl font-semibold">Best Quality Cycles</div>
+            <div className="text-3xl font-semibold">Our Best Picks</div>
 
             <div className="col-start-3 hidden sm:block ">
               <Link href={'/cycles'}>

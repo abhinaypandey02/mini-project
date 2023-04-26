@@ -18,20 +18,42 @@ export default function Footer() {
     <Wrapper className={'bg-black'}>
       <Container className={'grid grid-cols-1 gap-8 py-10  px-2 text-white md:grid-cols-3'}>
         <div>
-          <Link href={'/'} className={'flex items-center justify-center gap-3 md:justify-start'}>
-            <div className={'h-12 w-12'}>
-              <Image width={300} height={300} src={'/logo.png'} alt={'cycle management system'} />
+          <div>Logo</div>
+          <div>Lorem Ipsum</div>
+          <div className={'flex gap-4'}>
+            <div
+              className={
+                'flex h-5 w-5 items-center justify-center rounded-full border border-white'
+              }
+            >
+              f
             </div>
             <div
-              className={'text-1.5xl text-center font-bold hover:text-purple-900'}
-              style={{ color: '#F5C300' }}
+              className={
+                'flex h-5 w-5 items-center justify-center rounded-full border border-white'
+              }
             >
-              Cycle Management System
+              f
             </div>
-          </Link>
+            <div
+              className={
+                'flex h-5 w-5 items-center justify-center rounded-full border border-white'
+              }
+            >
+              f
+            </div>
+            <div
+              className={
+                'flex h-5 w-5 items-center justify-center rounded-full border border-white'
+              }
+            >
+              f
+            </div>
+          </div>
         </div>
-        <div className={'flex flex-col gap-2 text-center md:text-left'}>
-          <div className={'text-xl font-semibold'}>Pages</div>
+
+        <div className={'flex flex-col'}>
+          <div>Pages</div>
           <div>
             {ROUTES.map((route) => (
               <div key={route.slug}>

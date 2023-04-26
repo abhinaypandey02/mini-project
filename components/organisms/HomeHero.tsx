@@ -22,7 +22,7 @@ export default function HomeHero({ displayWaitListForm }: any) {
           </div>
           <div>
             <div className={'mt-2 mb-4 max-w-[440px] text-p3 opacity-80 md:my-6'}>
-              <span>Rent your cycle now or you will not be able to </span>
+              <span>Rent your cycle in just a few minutes!!! </span>
             </div>
           </div>
           <Link href={'/cycles'}>
